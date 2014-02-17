@@ -1,0 +1,42 @@
+
+MyFunctions python module - simple collection of python functions, most usefully including functions to compute exoplanet transit light curves (quadratic and nonlinear)
+
+Neale Gibson <Neale.Gibson@astro.ox.ac.uk>
+
+INSTALLATION:
+
+**this module first needs gsl scientific (C) library installed
+http://www.gnu.org/software/gsl/ and available on standard CPATH and LIBRARY_PATH
+This is easy to install, just download, unpack, enter directory and
+$ ./configure
+$ make
+$ make install
+or first configure to a different directory? - see gsl install instructions
+$ ./configure --prefix=<INSTALL_DIR>
+**
+
+To install MyFunctions:
+Unpack and go into MyFunctions-* dir. You will need to tell gcc where to find the python and numpy C header files to include for LibHyp. These need to be added to the CPATH environment variable. You can find their locations from the command line
+$ python-config --includes
+and
+$ python -c "import numpy; print numpy.get_include()"
+Now add these to the CPATH, eg
+$ setenv $CPATH <python-include-path>:<numpy-include-path>
+replacing the <include-paths> with your system paths.
+
+I haven't paid too much attention to how LibHyp is built, so you may also need to add the library paths to the environment variable LIBRARY_PATH. The python ones are found at
+$ python-config --ldflags
+and for numpy replace the include path /core/include/ with /lib/. This isn't necessary on my mac however, which by default dynamically links libraries. You can try and install LibHyp before making this step, it will be obvious if the libraries aren't found.
+
+Once added to the CPATH you can install LibHyp (needed to compile MyFunctions.TransitFlux sub-package) 
+with the makefile
+$ make -f build_libhyp
+
+NOTE: LybHyp is required only for the non-linear limb darkening transit. To install with just the quadratic law ignore LibHyp and comment out the import of FluxNonlin and any functions that require it in LightCurveModels.py.
+
+Then compile the python module as normal with distutils
+$ python setup.py build
+$ python setup.py install
+or
+$ python setup.py install --prefix=<INSTALL_DIR>
+etc...

@@ -1,0 +1,4 @@
+
+This library is edited from the scipy 0.8 source code, which calculates the Gauss hypergeometric function. The appell hypergeometric function is slow for some input parameters, so more analytic continuations probably need to be added to it or to the appell hypergeometric function in flux_func.c.
+
+Neale Gibson => Neale.Gibson@astro.ox.ac.uk

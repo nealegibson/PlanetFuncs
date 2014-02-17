@@ -1,0 +1,16 @@
+
+all: build
+
+#first must build the static library libhyp.a which is to be included in
+#TransitFlux.so, and calculates the Gauss hyp2f1 function from a modified
+#version of the scipy source code
+#available in a seperate directory
+
+build:
+	#first build and install (locally) LibHyp
+	make -C LibHyp
+	make -C LibHyp install
+
+clean:
+	make -C LibHyp clean
+	@rm -rvf build #remove the build and libs

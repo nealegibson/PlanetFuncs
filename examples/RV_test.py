@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from MyFunctions import RVCurve
+from MyFuncs import RVCurve
 import RadialVelFit as RV
 
 t = np.arange(0,4.1,0.001)

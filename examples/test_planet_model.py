@@ -3,7 +3,7 @@
 import numpy as np
 import pylab
 
-from MyFunctions import PlotEccOrbit, RVCurve, EccLightCurve, PlotEccOrbit_aRs
+from MyFuncs import PlotEccOrbit, RVCurve, EccLightCurve, PlotEccOrbit_aRs
 
 #import Cnst
 # import PlanetOrbit

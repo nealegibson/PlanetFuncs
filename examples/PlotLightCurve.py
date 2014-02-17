@@ -3,7 +3,7 @@
 import numpy as np
 import pylab
 
-import MyFunctions as MF
+import MyFuncs as MF
 
 #light curve parameters
 lc_pars = [2454000.0,1.,11.,.1,0.6,0.2,0.3,1.,0.]

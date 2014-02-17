@@ -4,7 +4,7 @@ import numpy as np
 import pylab
 import time as pytime
 
-import MyFunctions as MF
+import MyFuncs as MF
 #from LightCurveModel import LightCurveQuad,LightCurveNonlin
 
 #HD189733 properties

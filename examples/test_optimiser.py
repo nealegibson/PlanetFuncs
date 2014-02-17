@@ -3,7 +3,7 @@
 import numpy as np
 import pylab
 
-import MyFunctions as MF
+import MyFuncs as MF
 import DataAnalysis as DA
 
 mean_func = MF.Transit_aRs

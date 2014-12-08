@@ -21,7 +21,7 @@ def Optimise(LogLikelihood,par,func_args,fixed=None,type='max',method='NM',maxit
   maxiter, maxfun - max iterations and function evaluations for the nelder-mead algorithm
   """
   
-  if fixed==None:
+  if fixed is None:
     var_par = np.copy(par)
   #otherwise construct the parameter vector from var_par and fixed_par_val
   else:
@@ -58,7 +58,7 @@ def Optimise(LogLikelihood,par,func_args,fixed=None,type='max',method='NM',maxit
       **add_kwords)
   
   #now return the params in the correct order...
-  if fixed==None:
+  if fixed is None:
     return_par = fitted_par
   else:
     return_par = np.copy(par)    
@@ -72,7 +72,7 @@ def Optimise(LogLikelihood,par,func_args,fixed=None,type='max',method='NM',maxit
 def NegFixedPar_func(var_par,func,func_args,fixed=None,fixed_par=None,**kwargs):
   
   #if no fixed parameters passed - just assign var_par to par and call function
-  if fixed==None:
+  if fixed is None:
     par = np.copy(var_par)
   #otherwise construct the parameter vector from var_par and fixed_par_val
   else:
@@ -88,7 +88,7 @@ def NegFixedPar_func(var_par,func,func_args,fixed=None,fixed_par=None,**kwargs):
 def FixedPar_func(var_par,func,func_args,fixed=None,fixed_par=None,**kwargs):
   
   #if no fixed parameters passed - just assign var_par to par and call function
-  if fixed==None:
+  if fixed is None:
     par = np.copy(var_par)
   #otherwise construct the parameter vector from var_par and fixed_par_val
   else:

@@ -1,6 +1,7 @@
 
 from FixedParamWrapper import *
 from LightCurveModels import *
+from SecondaryModels import *
 from EccLightCurveModels import *
 from LikelihoodFunctions import *
 from RadialVelocityModels import *

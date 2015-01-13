@@ -31,7 +31,7 @@ double hyp2f1( double a, double b, double c, double x );
 
 //parameters for the hypergeometric function loop
 #define ETOL_HYPER 1e-6 // default 1e-8
-#define MAX_ITER_HYPER 25 // default 50
+#define MAX_ITER_HYPER 30 // default 50
 
 //main quad flux functions, include this prototype in any other c prog calling this
 double flux_quad(double z, double p, double gam_1, double gam_2);

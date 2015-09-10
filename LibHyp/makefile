@@ -5,7 +5,7 @@ build:
 install:
 	@mkdir -p lib
 	@mkdir -p include
-	cp src/libhyp.a lib/.
+	mv src/libhyp.a lib/.
 	cp src/*.h include/.
 
 clean:

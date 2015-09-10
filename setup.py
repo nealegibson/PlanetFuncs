@@ -6,7 +6,7 @@ setup(
   description='Module containing useful functions, plus C python extension to calculate fast Mandel & Agol 2002 transit light curves', 
   author='Neale Gibson',
   author_email='nealegibby@gmail.com',
-
+  
   #define pure python package(s)
   packages=['MyFuncs','MyFuncs.TransitFlux','MyFuncs.PlanetOrbit','MyFuncs.RadialVelocity','MyFuncs.WaveletLikelihood','MyFuncs.WaveletTransform'],
   package_dir={'MyFuncs':'src','MyFuncs.TransitFlux':'src/TransitFlux','MyFuncs.PlanetOrbit':'src/PlanetOrbit','MyFuncs.RadialVelocity':'src/RadialVelocity','MyFuncs.WaveletLikelihood':'src/WaveletLikelihood','MyFuncs.WaveletTransform':'src/WaveletTransform'},

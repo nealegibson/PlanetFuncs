@@ -182,4 +182,13 @@ def TransitNL_aRs_sq(par,t):
   #return flux
   return f
 
+def TransitNL_aRs_sq_norm(par,t):
+  """Return the normalisation part only..."""
+  
+  #read in pars
+  T0,P,a_Rstar,p,b,c1,c2,c3,c4,foot,Tgrad,Tgrad2 = par
+  
+  #return norm
+  return (foot + (t - T0) * 24. * Tgrad + (t - T0) * 24. * Tgrad2)
+
 

@@ -113,9 +113,19 @@ double flux_nonlin(double z, double p, double c1, double c2, double c3, double c
 	
 		for(n=0,sum=0.;n<5;n++){
 			sum += NF(n,SQ(z-p),SQ(z+p),z,p) * C[n] / (n+4.);
+		  #ifdef DEBUG
+		  printf("NF = %.15lf\n", NF(n,SQ(z-p),SQ(z+p),z,p));
+		  #endif
 			}
+		#ifdef DEBUG
+		printf("sum = %.15lf\n", sum);
+		#endif
 	
 		flux = 1. - pow(2*M_PI*Omega(C),-1.) * sum;
+
+// 		#ifdef DEBUG
+// 		printf("FLUX NONLIN: Case %d\n", Case);
+// 		#endif
 		}
 
 	//Case 3 - planet entirely within star, but does not touch/cross the centre, or touch limb
@@ -200,6 +210,11 @@ double flux_nonlin(double z, double p, double c1, double c2, double c3, double c
  		printf("  (z,p,Case) = %.10lf %.10lf %d\n", z,p,Case); fflush(stdout);
 		flux = 0.;
 		}
+
+	//print some output if DEBUG is on
+	#ifdef DEBUG
+	printf("FLUX NONLIN OUTPUT: %.15lf\t%.15lf\tcase %d\t%lf\n", z, p, Case, flux);
+	#endif
 	
 // 	if(flux>1.){
 // 		printf("warning: flux > 1.\n");

@@ -115,6 +115,12 @@ double Appell_Hyper(double a,double b1,double b2,double c,double x,double y)
 	while(1){
 		//sum up the individual terms from r=0->inf
 		h = hyp2f1(a+r,b2,c+r,y);
+		
+		if(isnan(h)){
+		    printf("warning in Appell_Hyper: h in sum is nan! breaking from loop early\nCheck precision of light curves!\n");
+		    break;
+		    }
+		  
 		ind_term = t*h;
 		sum += ind_term;
 		
@@ -123,7 +129,7 @@ double Appell_Hyper(double a,double b1,double b2,double c,double x,double y)
 		if(r==MAX_ITER_HYPER){
 			//printf("warning: appellF1 eval - max iterations reached\n");
 			break;}
-
+        
 		//increment r and calculate first term in series
 		//just need to multiply by these terms to get the new first term (t)
 		//(ie don't need to recalculate the pochammer vals)
@@ -156,7 +162,7 @@ double NF(int n, double a, double b, double z, double p)
 // 	printf("input pars = %d %lf %lf %lf %lf\n",n,a,b,z,p);
 // 	printf("gsl_sf_hyperg_2F1 pars = 0.5 0.5 %lf %lf\n", (n+10.)/4.,(1.-a)/(b-a));
 // 	printf("appell = %.10f\n", Appell_Hyper(0.5,1.,0.5,(n+10.)/4.,(a-1.)/a,(1.-a)/(b-a)));
-	
+
 	N = pow(1.-a,(n+6.)/4.) / pow(b-a,0.5);
 	N *= gsl_sf_beta((n+8.)/4.,0.5);
 	N *= ( (SQ(z)-SQ(p))/a*Appell_Hyper(0.5,1.,0.5,(n+10.)/4.,(a-1.)/a,(1.-a)/(b-a))

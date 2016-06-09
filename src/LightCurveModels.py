@@ -166,6 +166,10 @@ def TransitNL_aRs_sq(par,t):
 
   T0,P,a_Rstar,p,b,c1,c2,c3,c4,foot,Tgrad,Tgrad2 = par
   
+#  print "In func:"
+#  print par
+#  print T0,P,a_Rstar,p,b,c1,c2,c3,c4,foot,Tgrad,Tgrad2
+  
   #ensure b and p >= 0
   if b<0.: b=-b
   if p<0.: p=-p
@@ -177,7 +181,10 @@ def TransitNL_aRs_sq(par,t):
   z = np.sqrt( (a_Rstar*np.sin(theta))**2 + (b*np.cos(theta))**2 );
 
   #calculate flux
-  f = FluxNonlin(z,p,c1,c2,c3,c4) * (foot + (t - T0) * 24. * Tgrad + (t - T0) * 24. * Tgrad2) #time in hours for foot and Tgrad!
+  f = FluxNonlin(z,p,c1,c2,c3,c4) * (foot + (t - T0) * 24. * Tgrad + ((t - T0) * 24.)**2 * Tgrad2) #time in hours for foot and Tgrad!
+
+  if np.any(np.isnan(f)):
+    print "some returned fluxes are nan!"
   
   #return flux
   return f
@@ -188,7 +195,6 @@ def TransitNL_aRs_sq_norm(par,t):
   #read in pars
   T0,P,a_Rstar,p,b,c1,c2,c3,c4,foot,Tgrad,Tgrad2 = par
   
-  #return norm
-  return (foot + (t - T0) * 24. * Tgrad + (t - T0) * 24. * Tgrad2)
-
+  #return norm  return (foot + (t - T0) * 24. * Tgrad + (t - T0) * 24. * Tgrad2)
+  return (foot + (t - T0) * 24. * Tgrad + ((t - T0) * 24.)**2 * Tgrad2)
 

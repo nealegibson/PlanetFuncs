@@ -1,6 +1,6 @@
 
 Neale Gibson
-ngibson@eso.org
+n.gibson@qub.ac.uk
 nealegibby@gmail.com
 
 MyFuncs python module - collection of python functions, most usefully including functions to compute exoplanet transit light curves (quadratic and nonlinear), and some likelihood functions useful for MCMC and GaussianProcesses (some also in the Infer module). This has been designed for easy use alongside the Infer module. It contains install instructions and many examples, please contact me if you have any problems or suggestions.

@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from TransitFlux import FluxQuad,FluxNonlin
+from TransitFlux import FluxQuad,FluxNonlin,FluxQuad_ctypes,FluxNonlin_ctypes
 import Cnst
 
 def Transit(pars,t):
@@ -98,6 +98,27 @@ def Transit_aRs(par,t):
 
   #calculate flux
   f = FluxQuad(z,p,c1,c2) * (foot + (t - T0) * 24. * Tgrad) #time in hours for foot and Tgrad!
+    
+  #return flux
+  return f
+
+def Transit_aRs_ctypes(par,t):
+  """Lightcurve function for cicular orbits, from aRs etc..."""
+
+  T0,P,a_Rstar,p,b,c1,c2,foot,Tgrad = par
+  
+  #ensure b and p >= 0
+  if b<0.: b=-b
+  if p<0.: p=-p
+  
+  #calculate phase angle
+  theta = (2*np.pi/P) * (t - T0)
+  
+  #normalised separation z
+  z = np.sqrt( (a_Rstar*np.sin(theta))**2 + (b*np.cos(theta))**2 );
+
+  #calculate flux
+  f = FluxQuad_ctypes(z,p,c1,c2) * (foot + (t - T0) * 24. * Tgrad) #time in hours for foot and Tgrad!
     
   #return flux
   return f

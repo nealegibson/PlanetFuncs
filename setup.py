@@ -19,7 +19,9 @@ setup(
     Extension("MyFuncs.PlanetOrbit.PlanetOrbit",sources=["src/PlanetOrbit/PlanetOrbit.c","src/PlanetOrbit/PlanetOrbit_functions.c"]),
     Extension("MyFuncs.RadialVelocity.RadialVelocity",sources=["src/RadialVelocity/RadialVelocity.c"]),
     Extension("MyFuncs.WaveletLikelihood.WaveletLikelihood",sources=["src/WaveletLikelihood/WaveletLikelihood.c","src/WaveletLikelihood/FWT.c"],libraries=['gsl','gslcblas']),
-    Extension("MyFuncs.WaveletTransform.WaveletTransform",sources=["src/WaveletTransform/WaveletTransform.c","src/WaveletTransform/FWT.c"],libraries=['gsl','gslcblas'])
+    Extension("MyFuncs.WaveletTransform.WaveletTransform",sources=["src/WaveletTransform/WaveletTransform.c","src/WaveletTransform/FWT.c"],libraries=['gsl','gslcblas']),
+    Extension("MyFuncs.TransitFlux.TransitFlux_ctypes",sources=["src/TransitFlux/TransitFlux_ctypes.c","src/TransitFlux/flux_quad.c","src/TransitFlux/flux_nonlin.c","src/TransitFlux/flux_func.c"],libraries=['gsl','gslcblas','hyp'],
+      library_dirs=['./LibHyp/lib/'], #libhyp.a must be compiled first, and in a directory ./LibHyp/lib (obviously this can be changed if necessary)
+      include_dirs=['./LibHyp/include/']),
     ]
-    
   )

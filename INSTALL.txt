@@ -7,22 +7,41 @@ INSTALLATION:
 
 **this module first needs gsl scientific (C) library installed
 http://www.gnu.org/software/gsl/ and available on standard CPATH and LIBRARY_PATH
-This is easy to install, just download, unpack, enter directory and
+(I've also included a version on the git repository)
+This is easy to install, just download, unpack, enter directory:
+$ tar -xzvf gsl-1.16.tar.gz
+$ cd gsl-1.16
+then configure
 $ ./configure
-$ make
-$ make install
 or first configure to a different directory? - see gsl install instructions
 $ ./configure --prefix=<INSTALL_DIR>
+e.g.:
+$ ./configure --prefix=$HOME
+then finally need to build and install
+$ make
+$ make install
+to complete the installation add C paths for gsl, if not already in standard directory
+e.g. in bash:
+$ export CPATH="${HOME}/include:$CPATH"
+$ export LIBRARY_PATH="${HOME}/lib:$LIBRARY_PATH"
 **
 
-To install MyFunctions:
+To install MyFuncs:
 Unpack and go into MyFunctions-* dir. You will need to tell gcc where to find the python and numpy C header files to include for LibHyp. These need to be added to the CPATH environment variable. You can find their locations from the command line
 $ python-config --includes
 and
 $ python -c "import numpy; print numpy.get_include()"
 Now add these to the CPATH, eg
 $ setenv $CPATH <python-include-path>:<numpy-include-path>
+$ export CPATH=<python-include-path>:<numpy-include-path>:$CPATH
 replacing the <include-paths> with your system paths.
+
+In bash can do this quickly with:
+$ PY_CPATH=$(python -c 'from distutils.sysconfig import get_python_inc; print get_python_inc()')
+$ NP_CPATH=$(python -c 'import numpy as np; print np.get_include()')
+$ export CPATH="$PY_CPATH:$NP_CPATH:$CPATH"
+And for LIBRARY_PATH:
+export LIBRARY_PATH=$(python -c 'from distutils.sysconfig import get_python_inc; print get_python_inc()'):$LIBRARY_PATH
 
 I haven't paid too much attention to how LibHyp is built, so you may also need to add the library paths to the environment variable LIBRARY_PATH. The python ones are found at
 $ python-config --ldflags

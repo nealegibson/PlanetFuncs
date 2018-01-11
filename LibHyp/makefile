@@ -18,3 +18,4 @@ clean:
 	make -C src clean
 	@rm -vf libhyp.a
 	@rm -rvf lib include
+	

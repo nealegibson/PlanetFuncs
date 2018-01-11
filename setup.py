@@ -1,4 +1,9 @@
+
 from numpy.distutils.core import setup, Extension
+import os
+
+#first need to build a C library 
+os.system('make -f build_libhyp')
 
 setup(
   #metadata

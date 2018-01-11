@@ -50,6 +50,7 @@ and for numpy replace the include path /core/include/ with /lib/. This isn't nec
 Once added to the CPATH you can install LibHyp (needed to compile MyFunctions.TransitFlux sub-package) 
 with the makefile
 $ make -f build_libhyp
+** note that this step is now done automatically via the setup.py file, so isn't required
 
 NOTE: LybHyp is required only for the non-linear limb darkening transit. To install with just the quadratic law ignore LibHyp and comment out the import of FluxNonlin and any functions that require it in LightCurveModels.py.
 

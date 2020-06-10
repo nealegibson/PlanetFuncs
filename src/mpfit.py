@@ -217,8 +217,8 @@ def defiter(fcn, x, iter, fnorm = None, functkw = None, names = None, \
    if (fnorm == None):
       [status, fvec] = call(fcn, x, functkw, damp = damp, tied = tied)
       fnorm = enorm(fvec)**2
-   print "Iter ", ('%6i' % iter), "   CHI-SQUARE = ", ('%.10g' % fnorm), \
-       " DOF = ", ('%i' % dof)
+   print ("Iter ", ('%6i' % iter), "   CHI-SQUARE = ", ('%.10g' % fnorm), \
+       " DOF = ", ('%i' % dof))
    ## Determine which parameters to print
    xfree = x[ifree]
    nprint = len(xfree)
@@ -227,7 +227,7 @@ def defiter(fcn, x, iter, fnorm = None, functkw = None, names = None, \
       p = '   P' + str(i) + ' = '
       if (names != None):
          if namef[i].strip() != '': p = '   ' + namef[i] + ' = '
-      print p + (pformat % xfree[i]) + '  '
+      print (p + (pformat % xfree[i]) + '  ')
    return(0)
 
 def F(x, p):
@@ -441,13 +441,13 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
 
    ## Check input parameters for errors
    if (ftol <= 0) + (xtol <= 0) + (gtol <= 0) + (maxiter <= 0) + (factor <= 0):
-      print 'ERROR: invalid value for one of the input keywords'
+      print ('ERROR: invalid value for one of the input keywords')
       return res
    ## Parameter damping doesn't work when user is providing their own
    ## gradients.
    if (damp != 0) and (autoderivative == 0):
       print \
-          'ERROR: keywords DAMP and AUTODERIVATIVE are mutually exclusive'
+          ('ERROR: keywords DAMP and AUTODERIVATIVE are mutually exclusive')
       return res
 
    ## Fixed parameters?
@@ -455,7 +455,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
    if (fixed != None):
       if type(fixed) != numpy.ndarray: fixed = numpy.array(xall)
       if len(fixed) != npar:
-         print 'ERROR: number of elements in FIXED and P must agree'
+         print ('ERROR: number of elements in FIXED and P must agree')
          return res
       ifixed = (fixed != 0)
    qfixed = ifixed.any()
@@ -464,10 +464,10 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
    if (tied != None):
       if type(tied) != numpy.ndarray: tied = numpy.array(tied)
       if len(tied) != npar:
-         print 'ERROR: number of elements in TIED and P must agree'
+         print ('ERROR: number of elements in TIED and P must agree')
          return res
       if type(tied[0] != str):
-         print 'ERROR: TIED must be a numpy string array'
+         print ('ERROR: TIED must be a numpy string array')
          return res
       for i in range(npar):
          tied[i] = tied[i].strip()
@@ -477,7 +477,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
    ifree = (ifixed == False) * (itied == False) 
    n = numpy.sum(ifree)
    if n == 0:
-      print 'ERROR: no free parameters'
+      print ('ERROR: no free parameters')
       return res
    x = xall[ifree]
 
@@ -486,16 +486,16 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
    if (limited == None):
       if type(limited) != numpy.ndarray: limited = numpy.array(limited)
       if limits != None:
-         print 'WARNING: ignoring LIMITS as LIMITED not supplied'
+         print ('WARNING: ignoring LIMITS as LIMITED not supplied')
    else:
       if limits == None:
-         print 'ERROR: must supply LIMITS if supplying LIMITED'
+         print ('ERROR: must supply LIMITS if supplying LIMITED')
          return res
       if type(limits) != numpy.ndarray: limits = numpy.array(limits)
       #brackets needed
       if (numpy.shape(limited) != (2,npar)) + (numpy.shape(limits) != (2,npar)):
-         print 'ERROR: LIMITED and LIMITS must be 2xN arrays ' + \
-             '(N = no. parameters)'
+         print ('ERROR: LIMITED and LIMITS must be 2xN arrays ' + \
+             '(N = no. parameters)')
          return res
       ilimited = (limited != 0)
    ## Extract valyes for free params only
@@ -525,7 +525,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
       wh = ((iulim == True) * (x > ulim)) + ((illim == True) * (x < llim))
 #      print wh
       if wh.any():
-         print 'ERROR: input params. not within LIMITS'
+         print ('ERROR: input params. not within LIMITS')
          return res
       #added brackets
       #wh =  (iulim == True) * (illim == True) + llim >= ulim
@@ -538,14 +538,14 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
       #print wh
       #
       if wh.any():
-         print 'ERROR: inconsistent upper and lower LIMITS'
+         print ('ERROR: inconsistent upper and lower LIMITS')
          return res
 
    ## Parameter names for printing
    if (names != None):
       if type(names) != numpy.ndarray: names = numpy.array(names)
       if len(names) != npar:
-         print 'ERROR: number of elements in NAMES and P must agree'
+         print ('ERROR: number of elements in NAMES and P must agree')
          return res
 
    ## Finite differencing step, absolute and relative, and sidedness
@@ -571,21 +571,21 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
 
    ## Check rescaling parameters
    if (rescale != 0):
-      print 'ERROR: DIAG parameter scales are inconsistent'
+      print ('ERROR: DIAG parameter scales are inconsistent')
       if( len(diag) < n): return res
       wh = (diag <= 0)
       if (numpy.sum(wh) > 0): return res
-      print ''
+      print ('')
 
    ## Inital call to function
    res.params = xall.copy()
    [res.status, fvec] = call(fcn, res.params, functkw, damp = damp, tied = tied)
    if (res.status < 0):
-      print 'ERROR: first call to "' + str(fcn) + '" failed'
+      print ('ERROR: first call to "' + str(fcn) + '" failed')
       return res
    m = len(fvec)
    if (m < n):
-      print 'ERROR: no. parameters must not exceed no. data points'
+      print ('ERROR: no. parameters must not exceed no. data points')
       return res
    fnorm = enorm(fvec)
 
@@ -612,7 +612,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
                                
             ## Check for user termination
             if (res.status < 0):  
-               print 'WARNING: premature termination by ' + str(iterfunct)
+               print ('WARNING: premature termination by ' + str(iterfunct))
                return res
 
             ## If parameters were changed (grrr..) then re-tie
@@ -627,7 +627,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
                        dstep = dstep, functkw = functkw, ifree = ifree, \
                        xall = res.params, damp = damp, tied = tied)
       if (fjac == None):
-         print 'WARNING: premature termination by FDJAC2'
+         print ('WARNING: premature termination by FDJAC2')
          return res
 
       ## Determine if any of the parameters are pegged at the limits
@@ -782,7 +782,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
          [res.status, wa4] = call(fcn, res.params, functkw, damp = damp, \
                                  tied = tied)
          if (res.status < 0):
-            print 'WARNING: premature termination by "' + fcn + '"'
+            print ('WARNING: premature termination by "' + fcn + '"')
             return res
          fnorm1 = enorm(wa4)
   
@@ -865,7 +865,7 @@ def mpfit(fcn, xall, functkw = {}, fixed = None, limited = None, \
 
    ## Termination, either normal or user imposed.
    if (len(res.params) == 0): 
-      print 'WARNING: len(params)=0'
+      print ('WARNING: len(params)=0')
       return res
    if (n == 0): res.params = xall.copy()
    else: res.params[ifree] = x
@@ -963,7 +963,7 @@ def fdjac2(fcn, x, fvec, step = None, ulimited = None, ulimit = None, \
       [status, fp, pder] = call(fcn, xall, functkw, fjac = fjac, \
                              damp = damp, tied = tied)
       if numpy.prod(pder.shape) != m * nall:
-         print 'ERROR: Derivative matrix was not computed properly.'
+         print ('ERROR: Derivative matrix was not computed properly.')
          return None
       pder.shape = [m,nall]
       pder = -pder
@@ -1248,12 +1248,12 @@ def lmpar(r, ipvt, diag, qtb, delta, x, sdiag, par = None):
 def calc_covar(rr, ipvt=None, tol=1.e-14):
    """Compute covariance matrix"""
    if numpy.rank(rr) != 2:
-      print 'ERROR: r must be a two-dimensional matrix'
+      print ('ERROR: r must be a two-dimensional matrix')
       return -1
    s = numpy.shape(rr)
    n = s[0]
    if s[0] != s[1]:
-      print 'ERROR: r must be a square matrix'
+      print ('ERROR: r must be a square matrix')
       return -1
    if (ipvt == None): ipvt = numpy.arange(n)
    r = rr.copy()

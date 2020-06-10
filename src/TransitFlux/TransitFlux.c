@@ -26,7 +26,7 @@ static PyObject * Py_flux_quad_single(PyObject *self, PyObject *args);
 static PyObject * scale(PyObject *self, PyObject *args);
 
 //define methods in the module
-static PyMethodDef TransitFluxMethods[] = {
+static PyMethodDef mymethods[] = {
     {"flux_quad_single", Py_flux_quad_single, METH_VARARGS, "Returns flux as a function of z"},
     {"FluxQuad", Py_flux_quad_np, METH_VARARGS, "Returns flux as a function of z"},
     {"FluxNonlin", Py_flux_nonlin_np, METH_VARARGS, "Returns flux as a function of z"},
@@ -42,20 +42,18 @@ static PyMethodDef TransitFluxMethods[] = {
 //static PyObject * pModule = PyImport_Import(pName);
 //static PyObject * pFunc = PyObject_GetAttrString(pModule, "hyp2f1");
 
-
 #if PY_MAJOR_VERSION >= 3
 //initialise the module for python3
-
 static struct PyModuleDef Methods = {
     PyModuleDef_HEAD_INIT,
     "TransitFlux",   /* name of module */
     NULL, /* module documentation, may be NULL */
     -1,       /* size of per-interpreter state of the module,
                  or -1 if the module keeps state in global variables. */
-    TransitFluxMethods
+    mymethods
 };
 
-PyMODINIT_FUNC PyInit_Ccode(void)
+PyMODINIT_FUNC PyInit_TransitFlux(void)
 {
     PyObject *module = PyModule_Create(&Methods);
     import_array(); //must be present for numpy stuff
@@ -67,10 +65,11 @@ PyMODINIT_FUNC PyInit_Ccode(void)
 PyMODINIT_FUNC 
 initTransitFlux(void)
 {
-    (void) Py_InitModule3("TransitFlux", TransitFluxMethods, "Flux_docstring...");
+    (void) Py_InitModule3("TransitFlux", mymethods, "Flux_docstring...");
     import_array(); //must be present for numpy stuff
 }
 #endif
+
 
 /*********************************************************************************
 *********************************************************************************/

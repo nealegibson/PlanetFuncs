@@ -196,75 +196,75 @@ double Omega(double * C)
 	return Om;
 }
 
-double scipy_hyp2f1(double a, double b, double c, double x)
-//call scipy hyp2f1 directly from python
-//assumes python already initialised
-//works but too slow - ridiculous overheads when repeatedly calling python functions
-{
-    PyObject *pName, *pModule, *pFunc; //*pDict
-    PyObject *pArgs, *pValue;
-    double result;
-	
-	//start the python interpreter
-//    Py_Initialize();
-//    printf("python initialised...\n");
-    
-    //set the python module name
-    pName = PyString_FromString("scipy.special");
-    /* Error checking of pName left out */
-	
-	//import the module
-    pModule = PyImport_Import(pName);
-    Py_DECREF(pName); //decref
-	
-	//check the module is imported ok
-    if (pModule == NULL) {
-    	printf("error: module not imported.\n"); fflush(stdout);
-    	exit(1);}
-//    printf("module imported...\n");
-    
-    //define the function
-    pFunc = PyObject_GetAttrString(pModule, "hyp2f1");
-    /* pFunc is a new reference */
-//    printf("func defined...\n");
-
-	//check function is callable
-    if (!pFunc || !PyCallable_Check(pFunc)){
-    	printf("error: function not callable/available.\n"); fflush(stdout);
-    	exit(1);
-    	}
-    		
-	//create the args as a python tuple
-	pArgs = Py_BuildValue("dddd", a,b,c,x);
-	
-	//call the function
-	pValue = PyObject_CallObject(pFunc, pArgs);
-		
-	//check the function call is ok
-	if (pValue == NULL){
-		Py_DECREF(pFunc);
-		Py_DECREF(pModule);
-           printf("error: call failed.\n"); fflush(stdout);
-		exit(1);
-		}
-		
-	//convert answer back to c double
-	result = PyFloat_AsDouble(pValue);
-		
-	//print result
-//	printf("result = %lf\n", result);
-            
-    //decref the arguments
-	Py_DECREF(pArgs);
-               
-	//decrease the ref for func and module        
-    Py_XDECREF(pFunc);
-    Py_DECREF(pModule);
-
-	//finish python interpreter
-//    Py_Finalize();
-    
-    return result;
-}
+// double scipy_hyp2f1(double a, double b, double c, double x)
+// //call scipy hyp2f1 directly from python
+// //assumes python already initialised
+// //works but too slow - ridiculous overheads when repeatedly calling python functions
+// {
+//     PyObject *pName, *pModule, *pFunc; //*pDict
+//     PyObject *pArgs, *pValue;
+//     double result;
+// 	
+// 	//start the python interpreter
+// //    Py_Initialize();
+// //    printf("python initialised...\n");
+//     
+//     //set the python module name
+//     pName = PyString_FromString("scipy.special");
+//     /* Error checking of pName left out */
+// 	
+// 	//import the module
+//     pModule = PyImport_Import(pName);
+//     Py_DECREF(pName); //decref
+// 	
+// 	//check the module is imported ok
+//     if (pModule == NULL) {
+//     	printf("error: module not imported.\n"); fflush(stdout);
+//     	exit(1);}
+// //    printf("module imported...\n");
+//     
+//     //define the function
+//     pFunc = PyObject_GetAttrString(pModule, "hyp2f1");
+//     /* pFunc is a new reference */
+// //    printf("func defined...\n");
+// 
+// 	//check function is callable
+//     if (!pFunc || !PyCallable_Check(pFunc)){
+//     	printf("error: function not callable/available.\n"); fflush(stdout);
+//     	exit(1);
+//     	}
+//     		
+// 	//create the args as a python tuple
+// 	pArgs = Py_BuildValue("dddd", a,b,c,x);
+// 	
+// 	//call the function
+// 	pValue = PyObject_CallObject(pFunc, pArgs);
+// 		
+// 	//check the function call is ok
+// 	if (pValue == NULL){
+// 		Py_DECREF(pFunc);
+// 		Py_DECREF(pModule);
+//            printf("error: call failed.\n"); fflush(stdout);
+// 		exit(1);
+// 		}
+// 		
+// 	//convert answer back to c double
+// 	result = PyFloat_AsDouble(pValue);
+// 		
+// 	//print result
+// //	printf("result = %lf\n", result);
+//             
+//     //decref the arguments
+// 	Py_DECREF(pArgs);
+//                
+// 	//decrease the ref for func and module        
+//     Py_XDECREF(pFunc);
+//     Py_DECREF(pModule);
+// 
+// 	//finish python interpreter
+// //    Py_Finalize();
+//     
+//     return result;
+// }
 
 /**************************************************************************************************/

@@ -1,2 +1,2 @@
 
-from PlanetOrbit import *
+from .PlanetOrbit import *

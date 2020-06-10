@@ -3,7 +3,7 @@ Docstring...
 """
 
 import numpy as np
-import WaveletLikelihood as WL
+from . import WaveletLikelihood as WL
 
 ###############################################################################
 #'main' log likelihood functions here

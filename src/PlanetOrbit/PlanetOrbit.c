@@ -17,12 +17,34 @@ PyMethodDef PlanetOrbitMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-//initialise the module
-PyMODINIT_FUNC initPlanetOrbit(void)
+#if PY_MAJOR_VERSION >= 3
+//initialise the module for python3
+
+static struct PyModuleDef Methods = {
+    PyModuleDef_HEAD_INIT,
+    "PlanetOrbit",   /* name of module */
+    NULL, /* module documentation, may be NULL */
+    -1,       /* size of per-interpreter state of the module,
+                 or -1 if the module keeps state in global variables. */
+    PlanetOrbitMethods
+};
+
+PyMODINIT_FUNC PyInit_PlanetOrbit(void)
 {
-    (void) Py_InitModule3("PlanetOrbit", PlanetOrbitMethods, NULL);
+    PyObject *module = PyModule_Create(&Methods);
+    import_array(); //must be present for numpy stuff
+    return module;
+}
+
+#else
+//initialise the module for python2
+PyMODINIT_FUNC 
+initPlanetOrbit(void)
+{
+    (void) Py_InitModule3("PlanetOrbit", PlanetOrbitMethods, "PlanetOrbit docstring...");
     import_array(); //must be present for numpy stuff
 }
+#endif
 
 /********************************************************************************/
 static PyObject * get_x_py(PyObject *self, PyObject *args, PyObject *keywds)

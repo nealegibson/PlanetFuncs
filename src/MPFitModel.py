@@ -1,6 +1,6 @@
 
 import numpy as np
-import mpfit
+from . import mpfit
 
 ###############################################################################
 
@@ -12,7 +12,7 @@ def ErrFunc(p, x = None, y = None, err = None, fjac = None, func = None):
 #   print x.size, y.size, p
   
   if func == None:
-    print "func must be provided!"
+    print ("func must be provided!")
     return
   if err == None: return [0, func(p, x) - y, None]
   return [0, (func(p, x) - y) / err, None]
@@ -45,10 +45,10 @@ def MPFitFunc(x,y,func,guess_params,fixed=None,limited=None,limits=None,\
   input_params = guess_params[:]
   m = mpfit.mpfit(ErrFunc,input_params,functkw = fa,fixed=fixed,\
     quiet=True,limited=limited,limits=limits)
-  print "test: mpfit done!"
+  print ("test: mpfit done!")
   
   #check for errors
-  if (m.status <= 0): print 'error message = ', m.errmsg
+  if (m.status <= 0): print ('error message = ', m.errmsg)
   fit_params = np.copy(m.params) #get parameters
   err_params = np.copy(m.pcerror) #get errors
   if return_res:

@@ -18,13 +18,34 @@ PyMethodDef RadialVelocityMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-//initialise the module
+#if PY_MAJOR_VERSION >= 3
+//initialise the module for python3
+
+static struct PyModuleDef Methods = {
+    PyModuleDef_HEAD_INIT,
+    "RadialVelocity",   /* name of module */
+    NULL, /* module documentation, may be NULL */
+    -1,       /* size of per-interpreter state of the module,
+                 or -1 if the module keeps state in global variables. */
+    RadialVelocityMethods
+};
+
+PyMODINIT_FUNC PyInit_RadialVelocity(void)
+{
+    PyObject *module = PyModule_Create(&Methods);
+    import_array(); //must be present for numpy stuff
+    return module;
+}
+
+#else
+//initialise the module for python2
 PyMODINIT_FUNC 
 initRadialVelocity(void)
 {
-    (void) Py_InitModule3("RadialVelocity", RadialVelocityMethods, "Radial vel docstring...");
+    (void) Py_InitModule3("RadialVelocity", RadialVelocityMethods, "RadialVelocity...");
     import_array(); //must be present for numpy stuff
 }
+#endif
 
 /*********************************************************************************
 Python functions

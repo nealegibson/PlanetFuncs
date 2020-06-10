@@ -1,2 +1,2 @@
 
-from WaveletTransform import *
+from .WaveletTransform import *

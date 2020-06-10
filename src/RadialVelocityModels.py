@@ -2,8 +2,8 @@
 import numpy as np
 import pylab
 
-import Cnst
-from RadialVelocity import RadVel
+from . import Cnst
+from .RadialVelocity import RadVel
 
 ###############################################################################
 

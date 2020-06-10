@@ -1,2 +1,2 @@
 
-from RadialVelocity import *
+from .RadialVelocity import *

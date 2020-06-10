@@ -3,9 +3,9 @@ import numpy as np
 import pylab
 from mpl_toolkits.mplot3d import Axes3D
 
-from TransitFlux import FluxQuad
-import Cnst
-import PlanetOrbit
+from .TransitFlux import FluxQuad
+from . import Cnst
+from . import PlanetOrbit
 
 ###############################################################################
 

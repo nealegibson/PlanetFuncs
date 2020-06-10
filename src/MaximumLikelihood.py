@@ -5,12 +5,12 @@ import numpy as np
 def NelderMead(ErrFunc, params0, function_args, maxiter=10000, maxfun=10000, verbose=True):
 
   if verbose:
-    print "Running Nelder-Mead simplex algorithm... "
+    print ("Running Nelder-Mead simplex algorithm... ")
     t0 = time.clock()
   params = fmin(ErrFunc, params0, args=function_args, maxiter=maxiter, maxfun=maxfun)
   if verbose:
-    print "(Time: %f secs)" % (time.clock()-t0)
-    print "Maximum likelihood hyperparameters: ", params,"\n"
+    print ("(Time: %f secs)" % (time.clock()-t0))
+    print ("Maximum likelihood hyperparameters: ", params,"\n")
   return params
 
 def NegLogLikelihood(*args,**kwargs):

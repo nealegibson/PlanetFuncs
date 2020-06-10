@@ -1,8 +1,8 @@
 
 import numpy as np
 
-from TransitFlux import FluxQuad,FluxNonlin,FluxQuad_ctypes,FluxNonlin_ctypes
-import Cnst
+from .TransitFlux import FluxQuad,FluxNonlin,FluxQuad_ctypes,FluxNonlin_ctypes
+from . import Cnst
 
 def Transit(pars,t):
   """Lightcurve function for cicular orbits, from 'normal' physical parameters of star"""
@@ -205,7 +205,7 @@ def TransitNL_aRs_sq(par,t):
   f = FluxNonlin(z,p,c1,c2,c3,c4) * (foot + (t - T0) * 24. * Tgrad + ((t - T0) * 24.)**2 * Tgrad2) #time in hours for foot and Tgrad!
 
   if np.any(np.isnan(f)):
-    print "some returned fluxes are nan!"
+    print ("some returned fluxes are nan!")
   
   #return flux
   return f

@@ -1,2 +1,2 @@
 
-from WaveletLikelihood import *
+from .WaveletLikelihood import *

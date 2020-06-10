@@ -13,13 +13,33 @@ PyMethodDef WaveletLikelihoodMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-//initialise the module
+#if PY_MAJOR_VERSION >= 3
+//initialise the module for python3
+static struct PyModuleDef Methods = {
+    PyModuleDef_HEAD_INIT,
+    "WaveletLikelihood",   /* name of module */
+    NULL, /* module documentation, may be NULL */
+    -1,       /* size of per-interpreter state of the module,
+                 or -1 if the module keeps state in global variables. */
+    WaveletLikelihoodMethods
+};
+
+PyMODINIT_FUNC PyInit_WaveletLikelihood(void)
+{
+    PyObject *module = PyModule_Create(&Methods);
+    import_array(); //must be present for numpy stuff
+    return module;
+}
+
+#else
+//initialise the module for python2
 PyMODINIT_FUNC 
 initWaveletLikelihood(void)
 {
-    (void) Py_InitModule3("WaveletLikelihood", WaveletLikelihoodMethods, NULL);
+    (void) Py_InitModule3("WaveletLikelihood", WaveletLikelihoodMethods, "Flux_docstring...");
     import_array(); //must be present for numpy stuff
 }
+#endif
 
 /********************************************************************************/
 //main function called from python - converts args to c varaiables then calls chain func

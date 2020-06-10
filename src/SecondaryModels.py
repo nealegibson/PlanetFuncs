@@ -1,8 +1,8 @@
 
 import numpy as np
 
-from TransitFlux import FluxQuad,FluxNonlin
-import Cnst
+from .TransitFlux import FluxQuad,FluxNonlin
+from . import Cnst
 
 #####################################################################
 

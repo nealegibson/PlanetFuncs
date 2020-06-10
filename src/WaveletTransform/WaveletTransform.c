@@ -14,13 +14,34 @@ PyMethodDef WaveletTransformMethods[] = {
     {NULL, NULL, 0, NULL}
 };
 
-//initialise the module
+#if PY_MAJOR_VERSION >= 3
+//initialise the module for python3
+
+static struct PyModuleDef Methods = {
+    PyModuleDef_HEAD_INIT,
+    "WaveletTransform",   /* name of module */
+    NULL, /* module documentation, may be NULL */
+    -1,       /* size of per-interpreter state of the module,
+                 or -1 if the module keeps state in global variables. */
+    WaveletTransformMethods
+};
+
+PyMODINIT_FUNC PyInit_WaveletTransform(void)
+{
+    PyObject *module = PyModule_Create(&Methods);
+    import_array(); //must be present for numpy stuff
+    return module;
+}
+
+#else
+//initialise the module for python2
 PyMODINIT_FUNC 
 initWaveletTransform(void)
 {
-    (void) Py_InitModule3("WaveletTransform", WaveletTransformMethods, NULL);
+    (void) Py_InitModule3("WaveletTransform", WaveletTransformMethods, "docstring...");
     import_array(); //must be present for numpy stuff
 }
+#endif
 
 /********************************************************************************/
 static PyObject * WaveletTransform(PyObject *self, PyObject *args, PyObject *keywds)

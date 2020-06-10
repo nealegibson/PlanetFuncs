@@ -5,10 +5,12 @@ import ctypes
 import numpy as np
 from numpy.ctypeslib import ndpointer
 import os
+import glob
 
 #read in c function
-dir = os.path.dirname(__file__) #needs to be defined relative to current file
-lib = ctypes.cdll.LoadLibrary(dir+'/TransitFlux_ctypes.so')
+#dir = os.path.dirname(__file__) #needs to be defined relative to current file
+lib_file = glob.glob('{}/TransitFlux_ctypes*'.format(os.path.dirname(__file__)))[0] #find the file
+lib = ctypes.cdll.LoadLibrary(lib_file)
 
 #define the function and argtypes and return type
 flux_quad_c = lib.ctypes_flux_quad_np

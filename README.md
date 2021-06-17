@@ -7,8 +7,12 @@ PlanetFuncs python module - collection of python functions for exoplanet calcula
 written in C for fast implementation where necessary.
 
 This code is a streamlined and updated version of MyFuncs containing only planet funcs,
-and removed inference functions which are now in inferno. I have also simplified installation from depending on the libhyp hack into scipy code - now all the relevant
+and removed inference functions which are now in inferno. I have also simplified
+installation from depending on the libhyp hack into scipy code - now all the relevant
 code is contained in the TransitFlux submodule.
+
+While there is support for computing RV curves, eccentric orbits etc, I don't use these
+regularly and they are neither well tested nor optimised.
 
 ***
 
@@ -29,9 +33,12 @@ or
 
 ### INSTALLATION of GSL from source
 
-Alternatively you can install GSL from source, and make sure it's available on your CPATH and LIBRARY_PATH. It's quite easy, in principle could speed up the code if it's better tuned to your machine.
+Alternatively you can install GSL from source, and make sure it's available on your CPATH
+and LIBRARY_PATH. It's quite easy, in principle could speed up the code if it's better
+tuned to your machine.
 
-You can either download the latest version of GSL from http://www.gnu.org/software/gsl/ or use one of the versions included in this distribution.
+You can either download the latest version of GSL from http://www.gnu.org/software/gsl/
+or use one of the versions included in this distribution.
 
 It is easy to install, just download, unpack, enter directory:
 $ tar -xzvf gsl-1.16.tar.gz
@@ -48,7 +55,9 @@ Then need to build and install with make
 $ make
 $ make install
 
-Finally, to complete the installation your C compilers need to know where to look for the headers and code. Depending on the path, they may already be automatically found. If in doubt, you'll need to add to your CPATH and LIBRARY_PATH:
+Finally, to complete the installation your C compilers need to know where to look for the
+headers and code. Depending on the path, they may already be automatically found. If in
+doubt, you'll need to add to your CPATH and LIBRARY_PATH:
 e.g. in bash:
 $ export CPATH="${HOME}/include:$CPATH"
 $ export LIBRARY_PATH="${HOME}/lib:$LIBRARY_PATH"
@@ -72,11 +81,11 @@ p_quad = [0,3,10,0.1,0.,0.1,0.1,1.,0]
 p_nonlin = [0,3,10,0.1,0.,0.1,0.1,0.1,0.1,1.,0]
 
 flux_quad = transit_quad(p_quad,t)
-flux_nonlin = transit_quad(p_nonlin,t)
+flux_nonlin = transit_nonlin(p_nonlin,t)
 
-plt.figure()
-plt.plot(t,flux_quad,'r-')
-plt.plot(t,flux_nonlin,'k-')
+ax = plt.subplot(xlabel='time',ylabel='rel flux')
+ax.plot(t,flux_quad,'r-')
+ax.plot(t,flux_nonlin,'k-')
 
 ```
 

@@ -5,9 +5,14 @@ import pylab
 from . import Cnst
 from .RadialVelocity import RadVel
 
+"""
+These have not been checked/tested in a long time! Need retested before use.
+
+"""
+
 ###############################################################################
 
-def RVCurve(par,t,plot=False):
+def RVCurve(par,t):
   """Radial velocity function."""
   
   #convert parameters
@@ -67,17 +72,7 @@ def RVCurve(par,t,plot=False):
   
   #calculate Radial Velocity using C-function
   RV = RadVel(M, e, P, w+np.pi, K) + V0 #pass w+np.pi as w is arg_peri of planet
-  
-  if plot:
-    pylab.plot(t,RV)
-    pylab.axvline(x=T0,color='r',linestyle='-') #mark the central transit time
-    pylab.axvline(x=T_peri,color='g',linestyle='-') #mark the pericentre passage
-    pylab.axvline(x=T_sec,color='r',linestyle='-.') #mark the secondary transit time
-    pylab.axhline(y=V0,color='g',linestyle='--') #mark the secondary transit time
-    pylab.xlabel('Time / days')
-    pylab.ylabel('Radial Velocity (m/s)')
-    pylab.xlim(t.min(),t.max())
-  
+    
   return RV
 
 ###############################################################################

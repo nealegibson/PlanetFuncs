@@ -7,6 +7,14 @@ from .TransitFlux import FluxQuad
 from . import Cnst
 from . import PlanetOrbit
 
+"""
+These have not been checked/tested in a long time - just including so can be modified
+in the future.
+
+Also would need to optimised, e.g. remove plotting options etc.
+
+"""
+
 ###############################################################################
 
 def EccLightCurve(par,t,plot=False):

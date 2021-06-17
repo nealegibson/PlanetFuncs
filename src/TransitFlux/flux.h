@@ -11,7 +11,7 @@
 #include "gsl/gsl_sf_gamma.h" //for gamma func, beta func, factorials, Pochhammer symbol
 #include "gsl/gsl_sf_hyperg.h" //for hypergeometric funcitons
 
-#include <Python.h>
+//#include <Python.h>
 
 //scipy/cephes headers
 #include "mconf.h"

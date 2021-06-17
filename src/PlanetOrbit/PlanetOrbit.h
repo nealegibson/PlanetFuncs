@@ -1,6 +1,8 @@
 
 /********************************************************************************/
 
+#define PY_SSIZE_T_CLEAN //this redefines length of input args I think - recommended to call before Python.h
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION //this switches off the ability to use the old API
 #include <Python.h>
 #include <numpy/arrayobject.h> //for PyArray_Type objects
 #include <stdio.h>

@@ -67,20 +67,19 @@ static PyObject * get_x_py(PyObject *self, PyObject *args, PyObject *keywds)
 		}
 
 	//convert numpy object to contiguous array of doubles - will accept up to 10d arrays
-	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, PyArray_DOUBLE, 1, 10);
+	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, NPY_DOUBLE, 1, 10);
 	if(M == NULL) return NULL;
 	
-    //calculate no of data points in array
-	size=1;
-	for(i=0;i<M->nd;i++) size *= M->dimensions[i];
+  //get no of data points in array
+	size=PyArray_SIZE(M);
 	
 	//create output double array
-	x_coord = (PyArrayObject*) PyArray_SimpleNew(M->nd, M->dimensions, PyArray_DOUBLE);
+	x_coord = (PyArrayObject*) PyArray_SimpleNew(PyArray_NDIM(M), PyArray_SHAPE(M), NPY_DOUBLE);
 	
 	//do calculation on numpy array
     for(i=0;i<size;i++){
-    	*(((double*)x_coord->data) + i) = get_x(*(((double*)M->data)+i),a_rstar,ecc,peri);
-		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)M->data)+i),a_rstar,ecc,peri),*(((double*)M->data)+i),a_rstar,ecc,peri);
+    	*(((double*)PyArray_DATA(x_coord)) + i) = get_x(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri);
+		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri),*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri);
 		}
 	
 	//destroy reference to array
@@ -110,20 +109,19 @@ static PyObject * get_y_py(PyObject *self, PyObject *args, PyObject *keywds)
 		}
 
 	//convert numpy object to contiguous array of doubles - will accept up to 10d arrays
-	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, PyArray_DOUBLE, 1, 10);
+	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, NPY_DOUBLE, 1, 10);
 	if(M == NULL) return NULL;
 	
-    //calculate no of data points in array
-	size=1;
-	for(i=0;i<M->nd;i++) size *= M->dimensions[i];
+  //get no of data points in array
+	size=PyArray_SIZE(M);
 	
 	//create output double array
-	y_coord = (PyArrayObject*) PyArray_SimpleNew(M->nd, M->dimensions, PyArray_DOUBLE);
+	y_coord = (PyArrayObject*) PyArray_SimpleNew(PyArray_NDIM(M), PyArray_SHAPE(M), NPY_DOUBLE);
 
 	//do calculation on numpy array
     for(i=0;i<size;i++){
-    	*(((double*)y_coord->data) + i) = get_y(*(((double*)M->data)+i),a_rstar,ecc,peri,incl);
-		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)M->data)+i),a_rstar,ecc,peri),*(((double*)M->data)+i),a_rstar,ecc,peri);
+    	*(((double*)PyArray_DATA(y_coord)) + i) = get_y(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri,incl);
+		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri),*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri);
 		//printf("%lf\n", *(((double*)y_coord->data) + i));
 		}
 	
@@ -154,20 +152,19 @@ static PyObject * get_z_py(PyObject *self, PyObject *args, PyObject *keywds)
 		}
 
 	//convert numpy object to contiguous array of doubles - will accept up to 10d arrays
-	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, PyArray_DOUBLE, 1, 10);
+	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, NPY_DOUBLE, 1, 10);
 	if(M == NULL) return NULL;
 	
-    //calculate no of data points in array
-	size=1;
-	for(i=0;i<M->nd;i++) size *= M->dimensions[i];
+  //get no of data points in array
+	size=PyArray_SIZE(M);
 	
 	//create output double array
-	z_coord = (PyArrayObject*) PyArray_SimpleNew(M->nd, M->dimensions, PyArray_DOUBLE);
+	z_coord = (PyArrayObject*) PyArray_SimpleNew(PyArray_NDIM(M), PyArray_SHAPE(M), NPY_DOUBLE);
 
 	//do calculation on numpy array
     for(i=0;i<size;i++){
-    	*(((double*)z_coord->data) + i) = get_z(*(((double*)M->data)+i),a_rstar,ecc,peri,incl);
-		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)M->data)+i),a_rstar,ecc,peri),*(((double*)M->data)+i),a_rstar,ecc,peri);
+    	*(((double*)PyArray_DATA(z_coord)) + i) = get_z(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri,incl);
+		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri),*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri);
 		//printf("%lf\n", *(((double*)z_coord->data) + i));
 		}
 	
@@ -198,20 +195,19 @@ static PyObject * get_norm_py(PyObject *self, PyObject *args, PyObject *keywds)
 		}
 
 	//convert numpy object to contiguous array of doubles - will accept up to 10d arrays
-	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, PyArray_DOUBLE, 1, 10);
+	M = (PyArrayObject*) PyArray_ContiguousFromObject(M_object, NPY_DOUBLE, 1, 10);
 	if(M == NULL) return NULL;
 	
-    //calculate no of data points in array
-	size=1;
-	for(i=0;i<M->nd;i++) size *= M->dimensions[i];
+  //get no of data points in array
+	size=PyArray_SIZE(M);
 	
 	//create output double array
-	norm = (PyArrayObject*) PyArray_SimpleNew(M->nd, M->dimensions, PyArray_DOUBLE);
+	norm = (PyArrayObject*) PyArray_SimpleNew(PyArray_NDIM(M), PyArray_SHAPE(M), NPY_DOUBLE);
 
 	//do calculation on numpy array
     for(i=0;i<size;i++){
-    	*(((double*)norm->data) + i) = get_norm(*(((double*)M->data)+i),a_rstar,ecc,peri,incl);
-		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)M->data)+i),a_rstar,ecc,peri),*(((double*)M->data)+i),a_rstar,ecc,peri);
+    	*(((double*)PyArray_DATA(norm)) + i) = get_norm(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri,incl);
+		//printf("a: %lf %lf %lf %lf %lf\n", get_x(*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri),*(((double*)PyArray_DATA(M))+i),a_rstar,ecc,peri);
 		//printf("%lf\n", *(((double*)z_coord->data) + i));
 		}
 	

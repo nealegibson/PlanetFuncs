@@ -51,40 +51,76 @@ initRadialVelocity(void)
 Python functions
 *********************************************************************************/
 //numpy wrapper for radial velocity function
+// static PyObject * RadVel_np(PyObject *self, PyObject *args)
+// {
+// 	//define array object
+// 	PyObject * t;
+// 	PyArrayObject * array;
+// 	PyArrayObject * output;
+// 	
+// 	double e,P,w,K;
+// 	
+// 	//read in object
+// 	if (!PyArg_ParseTuple(args, "Odddd", &t, &e, &P, &w, &K))
+//   	  return NULL;
+// 	
+// 	//convert to contiguous array of doubles - will accept up to 10d arrays
+// 	array = (PyArrayObject*) PyArray_ContiguousFromObject(t, PyArray_DOUBLE, 1, 10);
+// 	if(array == NULL) return NULL;
+// 	
+// 	//calculate no of data size of array
+// 	int n,size=1;
+// 	for(n=0;n<array->nd;n++)
+// 		size *= array->dimensions[n];
+// 	
+// 	//create output array
+// 	output = (PyArrayObject*) PyArray_SimpleNew(array->nd, array->dimensions, PyArray_DOUBLE);
+// 	
+// 	//create data for output array from input array
+// 	for(n=0;n<size;n++)
+// 		*(((double*)output->data) + n) = Rad_vel(*(((double*)array->data) + n),e,P,w,K);
+// 	
+// 	//must destroy reference to array
+// 	Py_DECREF(array);
+// 	
+// 	//return array
+// 	return PyArray_Return(output);
+// }
+
+//rewrite with updated numpy API
+
 static PyObject * RadVel_np(PyObject *self, PyObject *args)
 {
-	//define array object
-	PyObject * t;
-	PyArrayObject * array;
-	PyArrayObject * output;
-	
+	//define variables for input
+	PyArrayObject * M=NULL, *out=NULL; //initiate as null pointers as some are optional	
 	double e,P,w,K;
-	
+
 	//read in object
-	if (!PyArg_ParseTuple(args, "Odddd", &t, &e, &P, &w, &K))
+	if (!PyArg_ParseTuple(args, "Odddd", &M, &e, &P, &w, &K))
   	  return NULL;
+
+  //define C pointers to data arrays - initiate to NULL
+  double *M_data = NULL, *out_data = NULL;
+	//define additional variables
+	int n;
 	
-	//convert to contiguous array of doubles - will accept up to 10d arrays
-	array = (PyArrayObject*) PyArray_ContiguousFromObject(t, PyArray_DOUBLE, 1, 10);
-	if(array == NULL) return NULL;
-	
-	//calculate no of data size of array
-	int n,size=1;
-	for(n=0;n<array->nd;n++)
-		size *= array->dimensions[n];
-	
-	//create output array
-	output = (PyArrayObject*) PyArray_SimpleNew(array->nd, array->dimensions, PyArray_DOUBLE);
-	
+	//check inputs are correct array types
+  if (!PyArray_ISCARRAY(M) || !(PyArray_TYPE(M) == NPY_DOUBLE) || !(PyArray_NDIM(M) == 1))
+    {PyErr_SetString(PyExc_TypeError, "RadVel_np error: M must be contiguous C 1D array of doubles"); return NULL;}
+  
+  //create output array of same shape as input t
+  out = (PyArrayObject*) PyArray_SimpleNew(1, PyArray_SHAPE(M), NPY_DOUBLE);
+
+  //assign double pointers to the input M and output out
+  M_data = (double*)PyArray_DATA(M); 
+  out_data = (double*)PyArray_DATA(out);
+  
 	//create data for output array from input array
-	for(n=0;n<size;n++)
-		*(((double*)output->data) + n) = Rad_vel(*(((double*)array->data) + n),e,P,w,K);
+	for(n=0;n<*PyArray_SHAPE(M);n++)
+		out_data[n] = Rad_vel(M_data[n],e,P,w,K);
 	
-	//must destroy reference to array
-	Py_DECREF(array);
-	
-	//return array
-	return PyArray_Return(output);
+	//return result
+	return Py_BuildValue("N", out); //must use N for any new objects, otherwise I'll get a memory leak!
 }
 
 /*********************************************************************************

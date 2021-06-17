@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include "flux.h"
 
-#include <Python.h>
-#include <numpy/arrayobject.h> //for PyArray_Type objects
+//#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
+//#include <Python.h>
+//#include <numpy/arrayobject.h> //for PyArray_Type objects
 
 //function to loop over array and assign results from flux quad
 int ctypes_flux_quad_np(double*z, double*f, int N, double p, double g1, double g2)

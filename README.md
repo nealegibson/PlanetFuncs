@@ -1,7 +1,5 @@
 
-Neale Gibson
-n.gibson@tcd.ie
-nealegibby@gmail.com
+Neale Gibson (n.gibson@tcd.ie, nealegibby@gmail.com)
 
 PlanetFuncs python module - collection of python functions for exoplanet calculations,
 written in C for fast implementation where necessary.

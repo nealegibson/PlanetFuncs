@@ -4,7 +4,7 @@ import numpy as np
 import pylab
 import time as pytime
 
-import MyFuncs as MF
+import PlanetFuncs as MF # edit to see if works on PlanetFuncs
 #from LightCurveModel import LightCurveQuad,LightCurveNonlin
 
 #HD189733 properties

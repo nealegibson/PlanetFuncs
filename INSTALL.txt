@@ -1,62 +1,53 @@
 
-MyFunctions python module - simple collection of python functions, most usefully including functions to compute exoplanet transit light curves (quadratic and nonlinear)
+PlanetFuncs python module - simple collection of python functions, most usefully including functions to compute exoplanet transit light curves (quadratic and nonlinear). This is
+forked from MyFuncs.
 
-Neale Gibson <Neale.Gibson@astro.ox.ac.uk>
+Neale Gibson <n.gibson@tcd.ie>
+
+------------------------------------------
 
 INSTALLATION:
 
-**this module first needs gsl scientific (C) library installed
-http://www.gnu.org/software/gsl/ and available on standard CPATH and LIBRARY_PATH
-(I've also included a version on the git repository)
-This is easy to install, just download, unpack, enter directory:
-$ tar -xzvf gsl-1.16.tar.gz
-$ cd gsl-1.16
-then configure
-$ ./configure
-or first configure to a different directory? - see gsl install instructions
-$ ./configure --prefix=<INSTALL_DIR>
-e.g.:
-$ ./configure --prefix=$HOME
-then finally need to build and install
-$ make
-$ make install
-to complete the installation add C paths for gsl, if not already in standard directory
-e.g. in bash:
-$ export CPATH="${HOME}/include:$CPATH"
-$ export LIBRARY_PATH="${HOME}/lib:$LIBRARY_PATH"
-**
+This module first needs the GSL scientific C library installed.
 
-To install MyFuncs:
-Unpack and go into MyFunctions-* dir. You will need to tell gcc where to find the python and numpy C header files to include for LibHyp. These need to be added to the CPATH environment variable. You can find their locations from the command line
-$ python-config --includes
-and
-$ python -c "import numpy; print numpy.get_include()"
-Now add these to the CPATH, eg
-$ setenv $CPATH <python-include-path>:<numpy-include-path>
-$ export CPATH=<python-include-path>:<numpy-include-path>:$CPATH
-replacing the <include-paths> with your system paths.
+The simple version is to install via conda
+$ conda install gsl
 
-In bash can do this quickly with:
-$ PY_CPATH=$(python -c 'from distutils.sysconfig import get_python_inc; print get_python_inc()')
-$ NP_CPATH=$(python -c 'import numpy as np; print np.get_include()')
-$ export CPATH="$PY_CPATH:$NP_CPATH:$CPATH"
-And for LIBRARY_PATH:
-export LIBRARY_PATH=$(python -c 'from distutils.sysconfig import get_python_inc; print get_python_inc()'):$LIBRARY_PATH
-
-I haven't paid too much attention to how LibHyp is built, so you may also need to add the library paths to the environment variable LIBRARY_PATH. The python ones are found at
-$ python-config --ldflags
-and for numpy replace the include path /core/include/ with /lib/. This isn't necessary on my mac however, which by default dynamically links libraries. You can try and install LibHyp before making this step, it will be obvious if the libraries aren't found.
-
-Once added to the CPATH you can install LibHyp (needed to compile MyFunctions.TransitFlux sub-package) 
-with the makefile
-$ make -f build_libhyp
-** note that this step is now done automatically via the setup.py file, so isn't required
-
-NOTE: LybHyp is required only for the non-linear limb darkening transit. To install with just the quadratic law ignore LibHyp and comment out the import of FluxNonlin and any functions that require it in LightCurveModels.py.
-
-Then compile the python module as normal with distutils
+Then the module can be installed as normal
 $ python setup.py build
 $ python setup.py install
 or
 $ python setup.py install --prefix=<INSTALL_DIR>
-etc...
+
+------------------------------------------
+
+Alternatively you can install GSL from source, and make sure it's available on your CPATH and LIBRARY_PATH. It's quite easy, in principle could speed up the code if it's better tuned to your machine.
+
+You can either download the latest version of GSL from http://www.gnu.org/software/gsl/ or use one of the versions included in this distribution.
+
+It is easy to install, just download, unpack, enter directory:
+$ tar -xzvf gsl-1.16.tar.gz
+$ cd gsl-1.16
+
+Then run configure
+$ ./configure
+or first configure to a different directory? - see gsl install instructions
+$ ./configure --prefix=<INSTALL_DIR>
+or for your home directory
+$ ./configure --prefix=$HOME
+
+Then need to build and install with make
+$ make
+$ make install
+
+Finally, to complete the installation your C compilers need to know where to look for the headers and code. Depending on the path, they may already be automatically found. If in doubt, you'll need to add to your CPATH and LIBRARY_PATH:
+e.g. in bash:
+$ export CPATH="${HOME}/include:$CPATH"
+$ export LIBRARY_PATH="${HOME}/lib:$LIBRARY_PATH"
+or for a non-standard location:
+$ export CPATH="<INSTALL_DIR>/include:$CPATH"
+$ export LIBRARY_PATH="<INSTALL_DIR>/lib:$LIBRARY_PATH"
+
+Then you can run python setup.py install as above.
+
+------------------------------------------------------------------------------------------

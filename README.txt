@@ -1,9 +1,65 @@
 
 Neale Gibson
-n.gibson@qub.ac.uk
+n.gibson@tcd.ie
 nealegibby@gmail.com
 
-MyFuncs python module - collection of python functions, most usefully including functions to compute exoplanet transit light curves (quadratic and nonlinear), and some likelihood functions useful for MCMC and GaussianProcesses (some also in the Infer module). This has been designed for easy use alongside the Infer module. It contains install instructions and many examples, please contact me if you have any problems or suggestions.
+PlanetFuncs python module - collection of python functions for exoplanet calculations,
+written in C for fast implementation where necessary.
+
+This code is a streamlined and updated version of MyFuncs containing only planet funcs,
+and removed inference functions which are now in inferno. I have also simplified installation from depending on the libhyp hack into scipy code - now all the relevant
+code is contained in the TransitFlux submodule.
+
+------------------------------------------
+
+INSTALLATION:
+
+This module first needs the GSL scientific C library installed.
+
+The simple version is to install via conda
+$ conda install gsl
+
+Then the module can be installed as normal
+$ python setup.py build
+$ python setup.py install
+or
+$ python setup.py install --prefix=<INSTALL_DIR>
+
+------------------------------------------
+
+Alternatively you can install GSL from source, and make sure it's available on your CPATH and LIBRARY_PATH. It's quite easy, in principle could speed up the code if it's better tuned to your machine.
+
+You can either download the latest version of GSL from http://www.gnu.org/software/gsl/ or use one of the versions included in this distribution.
+
+It is easy to install, just download, unpack, enter directory:
+$ tar -xzvf gsl-1.16.tar.gz
+$ cd gsl-1.16
+
+Then run configure
+$ ./configure
+or first configure to a different directory? - see gsl install instructions
+$ ./configure --prefix=<INSTALL_DIR>
+or for your home directory
+$ ./configure --prefix=$HOME
+
+Then need to build and install with make
+$ make
+$ make install
+
+Finally, to complete the installation your C compilers need to know where to look for the headers and code. Depending on the path, they may already be automatically found. If in doubt, you'll need to add to your CPATH and LIBRARY_PATH:
+e.g. in bash:
+$ export CPATH="${HOME}/include:$CPATH"
+$ export LIBRARY_PATH="${HOME}/lib:$LIBRARY_PATH"
+or for a non-standard location:
+$ export CPATH="<INSTALL_DIR>/include:$CPATH"
+$ export LIBRARY_PATH="<INSTALL_DIR>/lib:$LIBRARY_PATH"
+
+Then you can run python setup.py install as above.
+
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
 
 Changes prior to first github commit:
 

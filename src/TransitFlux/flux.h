@@ -17,7 +17,8 @@
 #include "mconf.h"
 
 //#define DEBUG
-#define MODE GSL_PREC_DOUBLE
+//#define MODE GSL_PREC_DOUBLE
+#define MODE GSL_PREC_SINGLE //can safely use single precision
 #define SQ(x) ((x)*(x))
 #define EPSILON 2e-12
 #define DOUBLE_EQ(x,v) (((v - EPSILON) < x) && (x <( v + EPSILON)))

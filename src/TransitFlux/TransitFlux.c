@@ -7,6 +7,8 @@ to star radii, and the two quadratic limb darkening coefficients gam_1 and gam_2
 Python Wrapper Aug 2009. flux_quad_python.c
 *********************************************************************************/
 
+#define PY_SSIZE_T_CLEAN //this redefines length of input args I think - recommended to call before Python.h
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION //this switches off the ability to use the old API
 #include <Python.h>
 #include <numpy/arrayobject.h> //for PyArray_Type objects
 #include <stdio.h>

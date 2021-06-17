@@ -21,13 +21,18 @@ regularly and they are neither well tested nor optimised.
 This module first needs the GSL scientific C library installed.
 
 The simple version is to install via conda
-`$ conda install gsl`
+
+```$ conda install gsl```
 
 Then the module can be installed as normal
-`$ python setup.py build`
-`$ python setup.py install`
+```
+$ python setup.py build
+$ python setup.py install
+```
 or
-`$ python setup.py install --prefix=<INSTALL_DIR>`
+```
+$ python setup.py install --prefix=<INSTALL_DIR>
+```
 
 ***
 

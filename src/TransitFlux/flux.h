@@ -31,6 +31,7 @@ double hyp2f1( double a, double b, double c, double x );
 //double scipy_hyp2f1(double a, double b, double c, double x);
 
 //parameters for the hypergeometric function loop
+//plenty of scope to speed this up I think
 #define ETOL_HYPER 1e-6 // default 1e-8
 #define MAX_ITER_HYPER 30 // default 50
 

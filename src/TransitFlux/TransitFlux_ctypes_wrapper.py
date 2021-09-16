@@ -9,6 +9,7 @@ import glob
 
 #read in c function
 #dir = os.path.dirname(__file__) #needs to be defined relative to current file
+#careful with import - different systems have different orders of glob files?
 lib_file = glob.glob('{}/TransitFlux_ctypes*so'.format(os.path.dirname(__file__)))[0] #find the file
 lib = ctypes.cdll.LoadLibrary(lib_file)
 

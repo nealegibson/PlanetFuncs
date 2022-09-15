@@ -1,6 +1,10 @@
 
 import numpy as np
-from .TransitFlux import FluxQuad,FluxNonlin,FluxQuad_ctypes,FluxNonlin_ctypes
+from .TransitFlux import FluxQuad,FluxNonlin
+
+import sys
+if not sys.platform == 'win32':
+  from .TransitFlux import FluxQuad_ctypes,FluxNonlin_ctypes
 
 def transit_no_ld(par,t):
   """
@@ -64,26 +68,27 @@ def transit_quad(par,t):
   #return flux
   return f
 
-def transit_quad_ctypes(par,t):
-  """
-  Lightcurve function for cicular orbits with quadratic limb darkening.
-  This version uses the ctypes wrapper rather than python C module. Included for testing.
-  """
+if not sys.platform == 'win32':
+  def transit_quad_ctypes(par,t):
+    """
+    Lightcurve function for cicular orbits with quadratic limb darkening.
+    This version uses the ctypes wrapper rather than python C module. Included for testing.
+    """
 
-  #get the parameters from vector
-  T0,P,a_Rstar,p,b,c1,c2,foot,Tgrad = par
+    #get the parameters from vector
+    T0,P,a_Rstar,p,b,c1,c2,foot,Tgrad = par
     
-  #calculate phase angle
-  theta = (2*np.pi/P) * (t - T0)
+    #calculate phase angle
+    theta = (2*np.pi/P) * (t - T0)
   
-  #normalised separation z
-  z = np.sqrt( (a_Rstar*np.sin(theta))**2 + (b*np.cos(theta))**2 );
+    #normalised separation z
+    z = np.sqrt( (a_Rstar*np.sin(theta))**2 + (b*np.cos(theta))**2 );
 
-  #calculate flux
-  f = FluxQuad_ctypes(z,p,c1,c2) * (foot + (t - T0) * 24. * Tgrad) #time in hours for foot and Tgrad!
+    #calculate flux
+    f = FluxQuad_ctypes(z,p,c1,c2) * (foot + (t - T0) * 24. * Tgrad) #time in hours for foot and Tgrad!
     
-  #return flux
-  return f
+    #return flux
+    return f
 
 def transit_quad_norm(par,t):
   """Lightcurve function for cicular orbits, from aRs etc..."""

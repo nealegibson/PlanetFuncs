@@ -1,3 +1,5 @@
 
 from .TransitFlux import *
-from .TransitFlux_ctypes_wrapper import *
+
+if not sys.platform == 'win32':
+  from .TransitFlux_ctypes_wrapper import *

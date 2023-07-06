@@ -18,8 +18,10 @@
 
 //#define DEBUG
 //#define MODE GSL_PREC_DOUBLE
-#define MODE GSL_PREC_SINGLE //can safely use single precision
+//#define MODE GSL_PREC_SINGLE //can safely use single precision
+#define MODE GSL_PREC_APPROX
 #define SQ(x) ((x)*(x))
+//#define EPSILON 2e-12
 #define EPSILON 2e-12
 #define DOUBLE_EQ(x,v) (((v - EPSILON) < x) && (x <( v + EPSILON)))
 #define DOUBEQ(a,b) (fabs(a-b) < 1E-8)

@@ -29,7 +29,10 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 	//define the main function values
 	double lambda_e=0, lambda_d=0, eta_d=0, flux;
 	
+	#ifdef DEBUG
 	int _case = -1;
+	#endif
+	
 	//now need to decide the situation based on p and z, then work out the flux accordingly
 	
 	//for p less than 0.5
@@ -39,11 +42,16 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		if (z >= (1+p) ){
 			#ifdef DEBUG
 			printf("p < 0.5, case 1\n");
+			_case = 1;
 			#endif
+			
+			//just return 1 immediately instead!!
+			flux = 1.;
+			return flux;
+			
 			lambda_e = 0;  
 			lambda_d = 0;
 			eta_d = 0;			
-			_case = 1;
 			}
 		
 		//case 4 - still seems to be a bug were case 2 is selected instead when z = p!
@@ -52,11 +60,11 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		else if (DOUBLE_EQ(z,(1.-p))){
 			#ifdef DEBUG
 			printf("p < 0.5, case 4\n");
+			_case = 4;
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_5(p);
 			eta_d = eta_2(z, p);
-			_case = 4;
 			}
 			
 		//case 2
@@ -65,22 +73,22 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		else if (z > (1.-p) && z < (1+p) ){
 			#ifdef DEBUG
 			printf("p < 0.5, case 2\n");
+			_case = 2;
 			#endif
 			lambda_e = lambda_e_pi_funct(z, p);  
 			lambda_d = lambda_1(z, p, a, b, q, k);
 			eta_d = eta_1(z,p,a,b);
-			_case = 2;
 			}
 			
 		//case 3
 		else if (z > p+EPSILON && z < (1-p)){
 			#ifdef DEBUG
 			printf("p < 0.5, case 3\n");
+			_case = 3;			
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_2(z, p, a, b, q, k);
 			eta_d = eta_2(z,p);
-			_case = 3;			
 			}
 
 		//case 5
@@ -88,23 +96,23 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		else if (DOUBLE_EQ(z,p)){
 			#ifdef DEBUG
 			printf("p < 0.5, case 5\n");
+			_case = 5;		
 			#endif
 			lambda_e = SQ(p);  
 			//k = 0.5/k;
 			lambda_d = lambda_4(p, k);
 			eta_d = eta_2(z,p);
-			_case = 5;		
 			}
 			
 		//case 9
 		else if (z > 0 && z < p ){
 			#ifdef DEBUG
 			printf("p < 0.5, case 9\n");
+			_case = 9;					
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_2(z, p, a, b, q, k) ;
 			eta_d = eta_2(z,p);
-			_case = 9;					
 			}
 		
 		//case 10
@@ -112,22 +120,22 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		else if (DOUBLE_EQ(z,0.)){
 			#ifdef DEBUG
 			printf("p < 0.5, case 10\n");
+			_case = 10;						
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_6(p);
 			eta_d = eta_2(z,p);
-			_case = 10;						
 			}
 			
 		//case 4 again!
 		else {
 			#ifdef DEBUG
 			printf("p < 0.5, case 4 (again!)\n");
+			_case = 4;
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_5(p);
 			eta_d = eta_2(z, p);
-			_case = 4;
 			}
 	}
 	
@@ -137,11 +145,11 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		if (z >= (1+p) ){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 1\n");
+			_case = 1;
 			#endif
 			lambda_e = 0;  
 			lambda_d = 0;
 			eta_d = 0;			
-			_case = 1;
 			}
 		
 		//case 2
@@ -149,78 +157,79 @@ double flux_quad(double z, double p, double gam_1, double gam_2)
 		else if (z > (p) && z < (1+p) ){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 2\n");
+			_case = 2;
 			#endif
 			lambda_e = lambda_e_pi_funct(z, p);  
 			lambda_d = lambda_1(z, p, a, b, q, k);
 			eta_d = eta_1(z,p,a,b);
-			_case = 2;
 			}
 			
 		//case 6
 		else if (z == 0.5 && p == 0.5){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 6\n");
+			_case = 6;			
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = 1.0/3.0 - 4.0/(9.0*M_PI);
 			eta_d = 3.0/32.0;
-			_case = 6;			
 			}
 
 		//case 7
 		else if (z == p){	
 			#ifdef DEBUG
 			printf("p >= 0.5, case 7\n");
+			_case = 7;			
 			#endif
 			lambda_e = lambda_e_pi_funct(z, p);  
 			lambda_d = lambda_3(p, k);
 			eta_d = eta_1(z,p,a,b);
-			_case = 7;			
 			}
 		
 		//case 8
 		else if (z > fabs(1-p) && z < p){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 8\n");
+			_case = 8;		
 			#endif
 			lambda_e = lambda_e_pi_funct(z, p);  
 			lambda_d = lambda_1(z, p, a, b, q, k);
 			eta_d = eta_1(z,p,a,b);
-			_case = 8;		
 			}
 		
 		//case 9
 		else if (z > 0 && z < (1-p) ){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 9\n");
+			_case = 9;					
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_2(z, p, a, b, q, k) ;
 			eta_d = eta_2(z,p);
-			_case = 9;					
 			}
 		
 		//case 10
 		else if (z == 0 && p<1.0){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 10\n");
+			_case = 10;						
 			#endif
 			lambda_e = SQ(p);  
 			lambda_d = lambda_6(p);
 			eta_d = eta_2(z,p);
-			_case = 10;						
 			}
 		
 		//case 11
 		else if (p>1 && z < p-1){
 			#ifdef DEBUG
 			printf("p >= 0.5, case 11\n");
+			_case = 11;	
 			#endif
 			lambda_e = 1;  
 			lambda_d = 1;
 			eta_d = 1;
 			flux = 0;
-			_case = 11;	
+			
 			//printf("%lf\t%lf\tcase %d\t%.10lf %.10lf %.10lf\t%lf\n", z, p, _case, lambda_e, lambda_d, eta_d, flux);
 			return flux;					
 			}

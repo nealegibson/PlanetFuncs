@@ -16,7 +16,7 @@ setup(
   #define extension module(s)
   ext_modules = [
     Extension("PlanetFuncs.TransitFlux.TransitFlux",sources=["src/TransitFlux/TransitFlux.c","src/TransitFlux/flux_quad.c","src/TransitFlux/flux_nonlin.c","src/TransitFlux/flux_func.c",
-      "src/TransitFlux/hyp2f1.c","src/TransitFlux/gamma.c","src/TransitFlux/psi.c","src/TransitFlux/round.c","src/TransitFlux/const.c","src/TransitFlux/fabs.c","src/TransitFlux/polevl.c","src/TransitFlux/mtherr.c"],libraries=['gsl','gslcblas'],
+      "src/TransitFlux/hyp2f1.c","src/TransitFlux/gamma.c","src/TransitFlux/psi.c","src/TransitFlux/round.c","src/TransitFlux/const.c","src/TransitFlux/fabs.c","src/TransitFlux/polevl.c","src/TransitFlux/mtherr.c"],libraries=['gsl',],
 #       library_dirs=['./LibHyp/lib/','/Users/neale/anaconda3/Library/lib/'], #libhyp.a must be compiled first, and in a directory ./LibHyp/lib (obviously this can be changed if necessary)
 #       include_dirs=['./LibHyp/include/','/Users/neale/anaconda3/Library/include/']
       ),

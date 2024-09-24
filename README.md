@@ -41,6 +41,10 @@ $ python setup.py install --prefix=<INSTALL_DIR>
 This was a little painful...
 
 
+conda init powershell # within anaconda prompt - initalises conda in standard shell
+
+
+
 ### INSTALLATION of GSL from source
 
 Alternatively you can install GSL from source, and make sure it's available on your CPATH

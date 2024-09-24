@@ -51,11 +51,11 @@ First open an Anaconda Powershell (which has conda initiated by default)
 
 Then I can open a windows powershell, via the *Developer Command Prompt* installed via VSCode. This depends on the exact version installed, but search for "developer command" in the search box and you should find it and open. Anaconda should be initialised now (indicated by the environment listed in the command prompt). In addition, this shell will have all of the associated C libraries linked.
 
-You also need to point to the correct GSL libraries. Within the powershell run:
+You also need to point to the correct GSL libraries. Within the powershell run (including the initial dollar signs!):
 ```
-$env:INCLUDE="$env:CONDA_PREFIX\Library\include"
-$env:LIB="$env:CONDA_PREFIX\Library\lib"
-$env:LIBPATH="$env:CONDA_PREFIX\Library\lib"
+> $env:INCLUDE="$env:CONDA_PREFIX\Library\include"
+> $env:LIB="$env:CONDA_PREFIX\Library\lib"
+> $env:LIBPATH="$env:CONDA_PREFIX\Library\lib"
 ```
 
 Finally, you should be able to build and install the package
@@ -63,6 +63,11 @@ Finally, you should be able to build and install the package
 pip install .
 # or 
 python -m pip install .
+```
+
+Note, to create a wheel distribution, run:
+```
+python -m build
 ```
 
 ### INSTALLATION of GSL from source

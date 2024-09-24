@@ -1,7 +1,7 @@
 .idea/
 build/
 makefile
-MANIFEST.in
+#MANIFEST.in
 LibHyp/lib/
 LibHyp/src/hyp2f1.c.old
 LibHyp/src/libhyp.a

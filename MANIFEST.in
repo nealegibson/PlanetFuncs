@@ -1,0 +1,6 @@
+#include non-standard files here
+recursive-include src/TransitFlux *.h
+recursive-include src/PlanetOrbit *.h
+recursive-include src/RadialVelocity *.h
+recursive-include src/PlanetOrbit *.h
+

@@ -36,6 +36,11 @@ $ python setup.py install --prefix=<INSTALL_DIR>
 
 ***
 
+### INSTALLATION on Windows 11
+
+This was a little painful...
+
+
 ### INSTALLATION of GSL from source
 
 Alternatively you can install GSL from source, and make sure it's available on your CPATH

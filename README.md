@@ -38,12 +38,32 @@ $ python setup.py install --prefix=<INSTALL_DIR>
 
 ### INSTALLATION on Windows 11
 
-This was a little painful...
+This was a little painful and may or may not work in general...
 
+Microsoft Visual C++ 14.0 or greater is required to get the C compilers
+Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+- Choose "Desktop Development with C++" and install
 
-conda init powershell # within anaconda prompt - initalises conda in standard shell
+First open an Anaconda Powershell (which has conda initiated by default)
+```
+> conda init powershell # within anaconda prompt - initalises conda in standard shell
+```
 
+Then I can open a windows powershell, via the *Developer Command Prompt* installed via VSCode. This depends on the exact version installed, but search for "developer command" in the search box and you should find it and open. Anaconda should be initialised now (indicated by the environment listed in the command prompt). In addition, this shell will have all of the associated C libraries linked.
 
+You also need to point to the correct GSL libraries. Within the powershell run:
+```
+$env:INCLUDE="$env:CONDA_PREFIX\Library\include"
+$env:LIB="$env:CONDA_PREFIX\Library\lib"
+$env:LIBPATH="$env:CONDA_PREFIX\Library\lib"
+```
+
+Finally, you should be able to build and install the package
+```
+pip install .
+# or 
+python -m pip install .
+```
 
 ### INSTALLATION of GSL from source
 

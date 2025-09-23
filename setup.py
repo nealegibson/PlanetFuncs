@@ -23,9 +23,9 @@ setup(
       ),
     Extension("PlanetFuncs.PlanetOrbit.PlanetOrbit",sources=["src/PlanetOrbit/PlanetOrbit.c","src/PlanetOrbit/PlanetOrbit_functions.c"]),
     Extension("PlanetFuncs.RadialVelocity.RadialVelocity",sources=["src/RadialVelocity/RadialVelocity.c"]),
-#     Extension("PlanetFuncs.TransitFlux.TransitFlux_ctypes",sources=["src/TransitFlux/TransitFlux_ctypes.c","src/TransitFlux/flux_quad.c","src/TransitFlux/flux_nonlin.c","src/TransitFlux/flux_func.c",
-#       "src/TransitFlux/hyp2f1.c","src/TransitFlux/gamma.c","src/TransitFlux/psi.c","src/TransitFlux/round.c","src/TransitFlux/const.c","src/TransitFlux/fabs.c","src/TransitFlux/polevl.c","src/TransitFlux/mtherr.c"],libraries=['gsl','cblas','m'],
-#       ),
+    Extension("PlanetFuncs.TransitFlux.TransitFlux_ctypes",sources=["src/TransitFlux/TransitFlux_ctypes.c","src/TransitFlux/flux_quad.c","src/TransitFlux/flux_nonlin.c","src/TransitFlux/flux_func.c",
+      "src/TransitFlux/hyp2f1.c","src/TransitFlux/gamma.c","src/TransitFlux/psi.c","src/TransitFlux/round.c","src/TransitFlux/const.c","src/TransitFlux/fabs.c","src/TransitFlux/polevl.c","src/TransitFlux/mtherr.c"],libraries=['gsl','cblas','m'],
+      ),
     ],
   include_dirs=[np.get_include(),],      
   )

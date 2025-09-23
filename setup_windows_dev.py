@@ -1,6 +1,6 @@
-
-from numpy.distutils.core import setup, Extension
+from setuptools import setup, Extension
 import os
+import numpy as np
 
 setup(
   #metadata
@@ -26,5 +26,6 @@ setup(
 #       "src/TransitFlux/hyp2f1.c","src/TransitFlux/gamma.c","src/TransitFlux/psi.c","src/TransitFlux/round.c","src/TransitFlux/const.c","src/TransitFlux/fabs.c","src/TransitFlux/polevl.c","src/TransitFlux/mtherr.c"],libraries=['gsl','gslcblas'],
 #       library_dirs=['./LibHyp/lib/','/Users/neale/anaconda3/Library/lib/'], #libhyp.a must be compiled first, and in a directory ./LibHyp/lib (obviously this can be changed if necessary)
 #       include_dirs=['./LibHyp/include/','/Users/neale/anaconda3/Library/include/']),
-    ]
+    ],
+  include_dirs=[np.get_include(),],          
   )
